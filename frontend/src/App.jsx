@@ -17,6 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Features from './components/FeaturesList'
 import Help from './pages/Help'
+import FlowerFreshness from './pages/FlowerFreshness'
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const App = () => {
   const [token, setToken] = useState(
@@ -41,6 +42,7 @@ const App = () => {
         <Route path='/product/:productId' element={<Product />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/login' element={<Login setToken={setToken} />} />
+        <Route path='/FlowerFreshness' element={<FlowerFreshness/>} />
         <Route path='/place-order' element={<PlaceOrder />} />
         <Route path='/orders' element={<Orders />} />
         <Route path='/help' element={<Help/>} />

@@ -4,9 +4,17 @@ function Features() {
   return (
     <>
       <div className="featuresContainer">
-        <div>
+        {/* <div>
           <p className="features">Flower Freshness</p>
-        </div>
+        </div> */}
+        <NavLink
+            to="/FlowerFreshness"
+            className={({ isActive }) => `${isActive ? "Active" : "Inactive"}`}
+          >
+          <div>
+            Flower Freshness
+            </div>
+          </NavLink>
         
           <NavLink
             to="/Occasions"

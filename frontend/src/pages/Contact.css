@@ -1,0 +1,40 @@
+.contactContainer {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color:#c8dbd7;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .contactHeading {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .contactSubHeading {
+    font-size: 1.1rem;
+    color: #3c5556;
+    margin: 5px 0;
+  }
+  
+  .detailsContainer {
+    margin-bottom: 20px;
+  }
+  
+  .emailLabel,
+  .phoneLabel {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #3c5556;
+  }
+  
+  .details {
+    font-size: 1rem;
+    color: #3c5556;
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+  
+  

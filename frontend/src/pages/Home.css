@@ -1,0 +1,85 @@
+:root{
+    --imageShade:  #435c5d96;
+    --textColor:white;
+    --headingColor:black;
+    --peach: #F5D4C3;
+    --reviewBack: #79adae;
+    --lightgreen: #C8DBD7;
+    --lightblue: #E9F1EF;
+    --knb: #E9F1EF;
+  }
+.backgroundImageContainer {
+    background-color: var(--imageShade);
+    background-image: url("https://www.mayflower.in/cdn/shop/files/1880_Banner_Home_Hydrangea.jpg?v=1631626710");
+    background-size: cover;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    background-blend-mode: multiply;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+.sentimentTitle {
+  color: var(--textColor);
+  font-size: 70px;
+  padding-top: 20px;
+
+  font-family: "Bitter", serif;
+}
+.sentimentTitle1 {
+  font-weight: 600;
+}
+.sentimentTitle2 {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 50px;
+}
+.sentimentButtons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 60%;
+}
+.sentimentButtonColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.sentimentButton {
+  font-family: "Exo 2", serif;
+  font-size: 30px;
+  /* max-width: max-content;
+ max-height: min-content; */
+  background-color: rgba(13, 13, 15, 0);
+  border: none;
+  color: var(--textColor);
+
+  padding: 30px;
+  flex-wrap: wrap;
+
+  text-align: center;
+  /* box-shadow:  2px 14px 2px rgba(13, 13, 15, 0.511); */
+  font-family: "Bitter", serif;
+  transition-property: text-decoration;
+  transition-duration: 500ms;
+}
+.sentimentButton:hover {
+  text-decoration: underline;
+}
+.customerReviewContainer {
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+    color: var(--textColor);
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--reviewBack);
+    padding-bottom: 30px;
+  }

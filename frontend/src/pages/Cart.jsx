@@ -23,7 +23,7 @@ const Cart = () => {
     }
     setCartData(tempData);
   }, [cartItems]);
-
+console.log(cartItems)
   const isCartEmpty = cartData.length === 0;
 
   return (
