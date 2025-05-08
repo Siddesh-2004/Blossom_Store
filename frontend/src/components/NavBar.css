@@ -1,0 +1,153 @@
+:root {
+    --navColor: #3c5556;
+    --navColorHover: #c8dbd7;
+    --navTextcolor: white;
+    --navTextcolorHover: black;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .navContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 8vw;
+    background-color: var(--navColor);
+    color: var(--navTextcolor);
+  }
+  
+  .navTabList1 {
+    display: flex;
+    list-style: none;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    font-family: "Exo 2";
+  }
+  .navTabList1 li {
+    padding-inline: 2.3vw;
+    padding-top: 0.8vw;
+    padding-bottom: 0.8vw;
+    border-radius: 10px;
+    transition-property: background, color;
+    transition-duration: 100ms;
+  }
+  
+  .navTabList1 li:hover {
+    background-color: var(--navColorHover);
+    color: var(--navTextcolorHover);
+  }
+  .navTabListContainer2 {
+    width: 45%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .navTabList2 {
+    display: flex;
+    list-style: none;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    font-family: "Exo 2";
+  }
+  .navTabList2 li {
+    /* padding-inline: 2.3vw;
+    padding-top: 0.8vw;
+    padding-bottom: 0.8vw; */
+    height: 100%;
+    border-radius: 10px;
+    margin: 5px;
+  }
+  
+  .searchBarContainer {
+    border-radius: 35px;
+    border: solid white 2px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+  }
+  .searchBar {
+    font-size: 20px;
+    border: none;
+    outline: none;
+    background-color: var(--navColor);
+    color: var(--navTextcolor);
+  }
+  
+  .loginButton {
+    font-family: "exo 2";
+    background-color: var(--navColor);
+    /* padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px; */
+    padding: 1vw;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    transition-property: background-color;
+    transition-duration: 100ms;
+    color: var(--navTextcolor);
+  }
+  .loginButton:hover {
+    background-color: var(--navColorHover);
+    color: var(--navTextcolorHover);
+  }
+  .loginButton:active {
+    background-color: var(--navColorHover);
+    color: var(--navTextcolorHover);
+  }
+  .shoppingCart {
+    transition-property: fill;
+    transition-duration: 10ms;
+  }
+  
+  .menuContainer {
+    font-family: "exo 2";
+    display: none;
+    visibility: hidden;
+    font-size: 16px;
+    transition-duration: 100ms;
+    transition-property: background-color, color;
+    appearance: none;
+  }
+  .menuContainer:hover {
+    background-color: var(--navColorHover);
+    color: var(--navTextcolorHover);
+  }
+  .dropDownMenu {
+    background-color: var(--navColor);
+    font-size: large;
+    border: none;
+    outline: none;
+    appearance: none;
+  }
+  @media screen and (max-width: 1000px) {
+    .navContainer {
+      padding-left: 0px;
+      justify-content: center;
+    }
+    .navTabList1 {
+      display: none;
+    }
+    .menuContainer {
+      visibility: visible;
+      display: block;
+      margin-right: 10px;
+    }
+  }
+  .Active {
+    color: rgb(196, 248, 8);
+  }
+  .Inactive {
+    color: rgb(255, 255, 255);
+  }
+  a {
+    text-decoration: none;
+  }
+  

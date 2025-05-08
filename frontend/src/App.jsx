@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Collection from './pages/Collection'
@@ -14,13 +15,24 @@ import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Features from './components/FeaturesList'
+import Help from './pages/Help'
+export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const App = () => {
+  const [token, setToken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : ""
+  );
+  useEffect(() => {
+    localStorage.setItem("token", token);
+  }, [token]);
+
   return (
-    <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+    <div className='px-4 sm:px-[0vw] md:px-[7vw] lg:px-[0vw]'>
       <ToastContainer />
       <NavBar />
       <SearchBar />
+      <Features/>
+      
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/collection' element={<Collection />} />
@@ -28,9 +40,11 @@ const App = () => {
         <Route path='/contact' element={<Contact />} />
         <Route path='/product/:productId' element={<Product />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Login setToken={setToken} />} />
         <Route path='/place-order' element={<PlaceOrder />} />
         <Route path='/orders' element={<Orders />} />
+        <Route path='/help' element={<Help/>} />
+
       </Routes>
       <Footer />
     </div>

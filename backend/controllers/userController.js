@@ -41,6 +41,7 @@ const loginUser = async (req, res) => {
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+   
 
     // INFO: Check if user already exists
     const userExists = await userModel.findOne({ email });
@@ -74,12 +75,14 @@ const registerUser = async (req, res) => {
 
     // INFO: Save user to database
     const user = await newUser.save();
+    
 
     // INFO: Create token
     const token = createToken(user._id);
 
     // INFO: Return success response
     res.status(200).json({ success: true, token });
+    
   } catch (error) {
     console.log("Error while registering user: ", error);
     res.status(500).json({ success: false, message: error.message });

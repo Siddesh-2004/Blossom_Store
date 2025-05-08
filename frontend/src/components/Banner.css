@@ -1,0 +1,25 @@
+*{
+    margin:0px;
+    padding:0px;  
+}
+.bannerContainer{
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    position: relative;
+    /* overflow: hidden; */
+}
+.slide{
+    width:100%;
+    height:100%;
+    border-radius: 20px;
+    /* position: absolute; */
+    transition: opacity 1s ease-in-out;
+    object-fit: cover;
+}
+fade{
+    opacity: 0;
+}
+.slide.fade{
+    opacity: 1;
+}

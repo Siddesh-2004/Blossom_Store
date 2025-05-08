@@ -1,6 +1,6 @@
 import React from 'react'
-import Hero from '../components/Hero'
-import LatestCollection from '../components/LatestCollection'
+import Banner from '../components/Banner'
+import OccasionContainer from '../components/OccasionContainer'
 import BestSeller from '../components/BestSeller'
 import OurPolicy from '../components/OurPolicy'
 import NewsLetterBox from '../components/NewsLetterBox'
@@ -8,8 +8,8 @@ import NewsLetterBox from '../components/NewsLetterBox'
 const Home = () => {
   return (
     <div>
-      <Hero />
-      <LatestCollection />
+      <Banner />
+      <OccasionContainer />
       <BestSeller />
       <OurPolicy />
       <NewsLetterBox />
