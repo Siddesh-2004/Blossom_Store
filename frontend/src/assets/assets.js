@@ -53,6 +53,103 @@ import p_img49 from './p_img49.png'
 import p_img50 from './p_img50.png'
 import p_img51 from './p_img51.png'
 import p_img52 from './p_img52.png'
+import flower from './flower.jpg'
+import flower1 from './flower1.jpg'
+import flower2 from './flower2.jpg'
+import flower3 from './flower3.jpg'
+import flower4 from './flower4.jpg'
+import flower5 from './flower5.jpg'
+import flower6 from './flower6.jpg'
+import flower7 from './flower7.jpg'
+import flower8 from './flower8.jpg'
+import flower9 from './flower9.jpg'
+import flower10 from './flower10.jpg'
+import flower11 from './flower11.jpg'
+import flower12 from './flower12.jpg'
+import flower13 from './flower13.jpg'
+import flower14 from './flower14.jpg'
+import flower15 from './flower15.jpg'
+import flower16 from './flower16.jpg'
+import flower17 from './flower17.jpg'
+import flower18 from './flower18.jpg'
+import flower19 from './flower19.jpg'
+import flower20 from './flower20.jpg'
+import flower21 from './flower21.jpg'
+import flower22 from './flower22.jpg'
+import flower23 from './flower23.jpg'
+import flower24 from './flower24.jpg'
+import flower25 from './flower25.jpg'
+import flower26 from './flower26.jpg'
+import flower27 from './flower27.jpg'
+import flower28 from './flower28.jpg'
+import flower29 from './flower29.jpg'
+import flower30 from './flower30.webp'
+import flower31 from './flower31.webp'
+import flower32 from './flower32.webp'
+import flower33 from './flower33.webp'
+import flower34 from './flower34.webp'
+import flower35 from './flower35.webp'
+import flower36 from './flower36.webp'
+import flower37 from './flower37.webp'
+import flower38 from './flower38.webp'
+import flower39 from './flower39.webp'
+import flower40 from './flower40.webp'
+import flower41 from './flower41.webp'
+import flower42 from './flower42.webp'
+import flower43 from './flower43.webp'
+import flower44 from './flower44.webp'
+import flower45 from './flower45.webp'
+import flower46 from './flower46.webp'
+import flower47 from './flower47.webp'
+import flower48 from './flower48.webp'
+import flower49 from './flower49.webp'
+import flower50 from './flower50.webp'
+import flower51 from './flower51.webp'
+import flower52 from './flower52.webp'
+import flower53 from './flower53.webp'
+import flower54 from './flower54.webp'
+import flower55 from './flower55.webp'
+import flower56 from './flower56.webp'
+import flower57 from './flower57.webp'
+import flower58 from './flower58.webp'
+import flower59 from './flower59.webp'
+import flower60 from './flower60.webp'
+import flower61 from './flower61.webp'
+import flower62 from './flower62.webp'
+import flower63 from './flower63.webp'
+import flower64 from './flower64.webp'
+import flower65 from './flower65.webp'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 import logo from './logo.png'
@@ -100,7 +197,7 @@ export const products = [
         _id: "aaaaa",
         name: "Women Round ",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
-        price: 100,
+        price: 1,
         image: [p_img1],
         category: "Women",
         subCategory: "Topwear",

@@ -8,25 +8,27 @@ function Features() {
           <p className="features">Flower Freshness</p>
         </div> */}
         <NavLink
-            to="/FlowerFreshness"
-            className={({ isActive }) => `${isActive ? "Active" : "Inactive"}`}
-          >
-          <div>
-            Flower Freshness
-            </div>
-          </NavLink>
-        
-          <NavLink
-            to="/Occasions"
-            className={({ isActive }) => `${isActive ? "Active" : "Inactive"}`}
-          >
-          <div>
-            Occasions
-            </div>
-          </NavLink>
-        
+          to="/FlowerFreshness"
+          className={({ isActive }) => `${isActive ? "Active" : "Inactive"}`}
+        >
+          <div>Flower Freshness</div>
+        </NavLink>
+
+        <NavLink
+          to="/Occasions"
+          className={({ isActive }) => `${isActive ? "Active" : "Inactive"}`}
+        >
+          <div>Occasions</div>
+        </NavLink>
+
         <div>
-          <p className="features">Bouquet Customization</p>
+          <NavLink
+            to="/myOrders"
+            className={({ isActive }) => `${isActive ? "Active" : "Inactive"}`}
+          >
+            <p>My Orders</p>
+          </NavLink>
+          
         </div>
       </div>
     </>

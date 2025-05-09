@@ -6,7 +6,7 @@ import ProductItem from "../components/ProductItem";
 
 const Collection = () => {
   const { products, search, showSearch } = useContext(ShopContext);
-  const [showFilter, setShowFilter] = useState(false);
+  const [showFilter, setShowFilter] = useState(true);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
@@ -95,7 +95,7 @@ const Collection = () => {
             alt="Dropdown"
           />
         </p>
-        {/* Category Filters */}
+        {/* Category Filters value and category has to be changed*/}
         <div
           className={`border border-gray-300 pl-5 py-3 mt-6 ${
             showFilter ? "" : "hidden"
@@ -111,7 +111,8 @@ const Collection = () => {
                 onChange={toggleCategory}
                 checked={category.includes("Men")}
               />
-              Men
+              
+                Birthday
             </label>
             <label className="flex gap-2 cursor-pointer">
               <input
@@ -121,7 +122,7 @@ const Collection = () => {
                 onChange={toggleCategory}
                 checked={category.includes("Women")}
               />
-              Women
+              Aniversary
             </label>
             <label className="flex gap-2 cursor-pointer">
               <input
@@ -131,7 +132,37 @@ const Collection = () => {
                 onChange={toggleCategory}
                 checked={category.includes("Kids")}
               />
-              Kids
+              Wedding GIfts
+            </label>
+            <label className="flex gap-2 cursor-pointer">
+              <input
+                className="w-3"
+                type="checkbox"
+                value={"Kids"}
+                onChange={toggleCategory}
+                checked={category.includes("Women")}
+              />
+              Big Gestures
+            </label>
+            <label className="flex gap-2 cursor-pointer">
+              <input
+                className="w-3"
+                type="checkbox"
+                value={"Women"}
+                onChange={toggleCategory}
+                checked={category.includes("Women")}
+              />
+              Gifts For Men
+            </label>
+            <label className="flex gap-2 cursor-pointer">
+              <input
+                className="w-3"
+                type="checkbox"
+                value={"Women"}
+                onChange={toggleCategory}
+                checked={category.includes("Kids")}
+              />
+              Congratulations
             </label>
           </div>
         </div>
@@ -151,7 +182,7 @@ const Collection = () => {
                 onChange={toggleSubCategory}
                 checked={subCategory.includes("Topwear")}
               />
-              Topwear
+              Bouquets
             </label>
             <label className="flex gap-2 cursor-pointer">
               <input
@@ -161,18 +192,9 @@ const Collection = () => {
                 onChange={toggleSubCategory}
                 checked={subCategory.includes("Bottomwear")}
               />
-              Bottomwear
+              Loose Flowers
             </label>
-            <label className="flex gap-2 cursor-pointer">
-              <input
-                className="w-3"
-                type="checkbox"
-                value={"Winterwear"}
-                onChange={toggleSubCategory}
-                checked={subCategory.includes("Winterwear")}
-              />
-              Winterwear
-            </label>
+            
           </div>
         </div>
         {/* Clear Filters Button */}

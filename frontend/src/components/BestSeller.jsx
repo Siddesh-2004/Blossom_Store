@@ -15,7 +15,7 @@ const BestSeller = () => {
   }, []);
 
   return (
-    <div className="my-10">
+    <div className="my-10 ">
       <div className="py-8 text-3xl text-center">
         <Heading heading1="Best Selling" heading2="Floral arrangements that get the most love"/>
         {/* <Title text1={"BEST"} text2={"SELLERS"} /> */}

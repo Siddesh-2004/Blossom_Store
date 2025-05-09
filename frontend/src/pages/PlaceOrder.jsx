@@ -1,16 +1,15 @@
-import React, { useContext, useState } from 'react'
-import Title from '../components/Title'
-import CartTotal from '../components/CartTotal'
-import { assets } from '../assets/assets'
-import { ShopContext } from '../context/ShopContext'
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import React, { useContext, useState } from "react";
+import Title from "../components/Title";
+import CartTotal from "../components/CartTotal";
+import { assets } from "../assets/assets";
+import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
-  const {products,cartItems,getCartAmount} = useContext(ShopContext);
+  const { products, cartItems, getCartAmount } = useContext(ShopContext);
+  const [paymentMethod, setPaymentMethod] = useState("cod");
 
-  const [method, setMethod] = useState('cod');
-  const {navigate} = useContext(ShopContext);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -21,220 +20,185 @@ const PlaceOrder = () => {
     zipCode: "",
     country: "",
     mobile: "",
+    paymentMethod: "cod",
   });
 
-  const handleChange = (e) => {
+  const handleChanges = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+    if (name === "paymentMethod") {
+      setPaymentMethod(value);
+    }
   };
-  
+
+  const launchRazorpay = async (orderPayload) => {
+    try {
+      const amount = orderPayload.totalAmount;
+
+      const { data } = await axios.post("http://localhost:4000/api/payment/payment", {
+        amount,
+        currency: "INR",
+      });
+      console.log("Razorpay order response:", data);
+
+      const options = {
+        key: "rzp_test_C2YjF98ObgL2B5",
+        amount: data.amount,
+        currency: "INR",
+        name: "Blossom",
+        description: "Order Payment",
+        order_id: data.id,
+        handler:  async function (response) {
+  try {
+    const validateRes = await axios.post("http://localhost:4000/api/payment/validate", {
+      razorpay_order_id: data.id,
+      razorpay_payment_id: response.razorpay_payment_id,
+      razorpay_signature: response.razorpay_signature,
+    });
+    console.log("Payment validation response:", validateRes);
+    console.log("Payment response:", response); 
+
+    if (validateRes.data.success) {
+      console.log("Payment validated successfully");
+      placeOrder(orderPayload); // Now call placeOrder only if valid
+    } else {
+      toast.error("Payment validation failed");
+    }
+  } catch (error) {
+    console.error("Error validating payment", error);
+    toast.error(error.response.data.message || "Payment validation failed");
+  }
+}
+,
+        prefill: {
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          contact: formData.mobile,
+        },
+        theme: { color: "#0f172a" },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Razorpay error:", error);
+      toast.error("Payment initiation failed.");
+    }
+  };
+
+  const placeOrder = async (payload, paymentStatus) => {
+    try {
+      payload.paymentStatus = paymentStatus;
+      const res = await axios.post("http://localhost:4000/api/orders/create", payload);
+      toast.success("Order placed successfully!");
+      console.log("Order response:", res.data);
+    } catch (err) {
+      console.error("Error submitting order:", err);
+      toast.error(err.response.data.message || "Order submission failed");
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    try {
-      // 1. Get cart items from context and match them with product data
-      const items = Object.keys(cartItems).map((cartKey) => {
-        const product = products.find((prod) => prod._id === cartKey); // Find product in the products array by ID
-        if (!product) return null; // Skip if product is not found
-        const size = Object.keys(cartItems[cartKey])[0]; // Assuming each cart item has only one size key
-        const quantity = cartItems[cartKey][size]; // Get the quantity for that size
-  
+
+    const items = Object.keys(cartItems)
+      .map((cartKey) => {
+        const product = products.find((prod) => prod._id === cartKey);
+        if (!product) return null;
+        const size = Object.keys(cartItems[cartKey])[0];
+        const quantity = cartItems[cartKey][size];
+
         if (quantity > 0) {
           return {
             name: product.name,
-            image: product.image[0], // Assuming first image in the array
+            image: product.image[0],
             quantity: quantity,
             price: product.price,
             size: size,
           };
         }
         return null;
-      }).filter(item => item !== null); // Remove any null items if product is not found or quantity is 0
-  
-      // 2. Calculate total amount
-      const totalAmount = getCartAmount();
-  
-      // 3. Build the order payload
-      const payload = {
-        customerName: `${formData.firstName} ${formData.lastName}`,
-        customerEmail: formData.email,
-        customerAddress: `${formData.street}, ${formData.city}, ${formData.state}, ${formData.zipCode}, ${formData.country}`,
-        items: items,
-        totalAmount: totalAmount+10,
-        paymentStatus: method === 'cod' ? 'pending' : 'paid',
-        orderStatus: 'processing',
-        orderDate: Date.now(),
-      };
-      console.log("Order payload:", payload);
-  
-      // 4. Send the order data to the backend
-      const res = await axios.post('http://localhost:4000/api/orders/create', payload);
-  
-      toast.success("Order placed successfully!");
-      console.log("Order response:", res.data);
-  
-      // Optional: Clear form or cart, navigate, etc.
-      // navigate('/success');
-    } catch (err) {
-      console.error("Error submitting order:", err);
-      toast.error("Something went wrong while placing your order.");
+      })
+      .filter((item) => item !== null);
+
+    const totalAmount = getCartAmount() + 10;
+
+    const payload = {
+      customerName: `${formData.firstName} ${formData.lastName}`,
+      customerEmail: formData.email,
+      customerAddress: `${formData.street}, ${formData.city}, ${formData.state}, ${formData.zipCode}, ${formData.country}`,
+      items: items,
+      totalAmount: totalAmount,
+      orderStatus: "processing",
+      orderDate: Date.now(),
+    };
+    console.log("Payload:", payload);
+
+    if (paymentMethod === "razorpay") {
+      await launchRazorpay(payload);
+    } else {
+      await placeOrder(payload, "pending");
     }
   };
 
-
-
-  
   return (
-    <div className='flex flex-col justify-between gap-4 pt-5 sm:flex-row sm:pt-14 min-h-[80vh] border-t'>
-      {/* Left Side Content */}
-      <form
-      onSubmit={handleSubmit}
-      className="flex flex-col w-full gap-4 sm:max-w-[480px]"
-    >
-      <div className="my-3 text-xl sm:text-2xl font-semibold">
-        DELIVERY INFORMATION
-      </div>
+    <div className="flex flex-col justify-between gap-4 pt-5 sm:flex-row sm:pt-14 min-h-[80vh] border-t">
+      <form onSubmit={handleSubmit} className="flex flex-col w-full gap-4 sm:max-w-[480px]">
+        <div className="my-3 text-xl sm:text-2xl font-semibold">DELIVERY INFORMATION</div>
 
-      <div className="flex gap-3">
-        <input
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded"
-          type="text"
-          placeholder="First Name"
-          required
-        />
-        <input
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded"
-          type="text"
-          placeholder="Last Name"
-          required
-        />
-      </div>
+        <div className="flex gap-3">
+          <input name="firstName" value={formData.firstName} onChange={handleChanges} required placeholder="First Name" className="w-full px-4 py-2 border rounded" />
+          <input name="lastName" value={formData.lastName} onChange={handleChanges} required placeholder="Last Name" className="w-full px-4 py-2 border rounded" />
+        </div>
 
-      <input
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        className="w-full px-4 py-2 border border-gray-300 rounded"
-        type="email"
-        placeholder="Email Address"
-        required
-      />
+        <input name="email" value={formData.email} onChange={handleChanges} required placeholder="Email Address" className="w-full px-4 py-2 border rounded" />
 
-      <input
-        name="street"
-        value={formData.street}
-        onChange={handleChange}
-        className="w-full px-4 py-2 border border-gray-300 rounded"
-        type="text"
-        placeholder="Street"
-        required
-      />
+        <input name="street" value={formData.street} onChange={handleChanges} required placeholder="Street" className="w-full px-4 py-2 border rounded" />
 
-      <div className="flex gap-3">
-        <input
-          name="city"
-          value={formData.city}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded"
-          type="text"
-          placeholder="City"
-          required
-        />
-        <input
-          name="state"
-          value={formData.state}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded"
-          type="text"
-          placeholder="State"
-          required
-        />
-      </div>
+        <div className="flex gap-3">
+          <input name="city" value={formData.city} onChange={handleChanges} required placeholder="City" className="w-full px-4 py-2 border rounded" />
+          <input name="state" value={formData.state} onChange={handleChanges} required placeholder="State" className="w-full px-4 py-2 border rounded" />
+        </div>
 
-      <div className="flex gap-3">
-        <input
-          name="zipCode"
-          value={formData.zipCode}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded"
-          type="number"
-          placeholder="Zip Code"
-          required
-        />
-        <input
-          name="country"
-          value={formData.country}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded"
-          type="text"
-          placeholder="Country"
-          required
-        />
-      </div>
+        <div className="flex gap-3">
+          <input name="zipCode" value={formData.zipCode} onChange={handleChanges} required placeholder="Zip Code" type="number" className="w-full px-4 py-2 border rounded" />
+          <input name="country" value={formData.country} onChange={handleChanges} required placeholder="Country" className="w-full px-4 py-2 border rounded" />
+        </div>
 
-      <input
-        name="mobile"
-        value={formData.mobile}
-        onChange={handleChange}
-        className="w-full px-4 py-2 border border-gray-300 rounded"
-        type="number"
-        placeholder="Mobile"
-        required
-      />
+        <input name="mobile" value={formData.mobile} onChange={handleChanges} required placeholder="Mobile" type="number" className="w-full px-4 py-2 border rounded" />
 
-      <button
-        type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Submit
-      </button>
-    </form>
-      {/* Right Side Content */}
-      <div className='mt-8'>
-        <div className='mt-8 min-w-80'>
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold mb-2 text-gray-800">Select Payment Method</h2>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <label className="flex items-center gap-3 p-3 border rounded cursor-pointer hover:shadow-md transition">
+              <input type="radio" name="paymentMethod" value="cod" checked={formData.paymentMethod === "cod"} onChange={handleChanges} className="accent-green-600 w-4 h-4" />
+              <span className="text-gray-700 font-medium">Cash on Delivery</span>
+            </label>
+            <label className="flex items-center gap-3 p-3 border rounded cursor-pointer hover:shadow-md transition">
+              <input type="radio" name="paymentMethod" value="razorpay" checked={formData.paymentMethod === "razorpay"} onChange={handleChanges} className="accent-green-600 w-4 h-4" />
+              <span className="text-gray-700 font-medium">Razorpay</span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Submit
+        </button>
+      </form>
+
+      <div className="mt-8">
+        <div className="mt-8 min-w-80">
           <CartTotal />
         </div>
-        {/* Payment Methods Selection */}
-        <div className='mt-12'>
-          <Title text1={'PAYMENT'} text2={'METHODS'} />
-          <div className='flex flex-col gap-3 lg:flex-row'>
-            <div onClick={() => setMethod('stripe')} className='flex items-center gap-3 p-2 px-3 border cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'stripe' ? 'bg-green-600' : ''}`}></p>
-              <img className='h-5 mx-4' src={assets.stripe_logo} alt="Stripe" />
-            </div>
-            <div onClick={() => setMethod('razorpay')} className='flex items-center gap-3 p-2 px-3 border cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'razorpay' ? 'bg-green-600' : ''}`}></p>
-              <img className='h-5 mx-4' src={assets.razorpay_logo} alt="RazorPay" />
-            </div>
-            <div onClick={() => setMethod('cod')} className='flex items-center gap-3 p-2 px-3 border cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'cod' ? 'bg-green-600' : ''}`}></p>
-              <p className='mx-4 text-sm font-medium text-gray-500'>CASH ON DELIVERY</p>
-            </div>
-          </div>
-          <div className='w-full mt-8 text-end'>
-            <button onClick={() => navigate('/orders')} className='px-16 py-3 text-sm text-white bg-black active:bg-gray-800'>PLACE ORDER</button>
-          </div>
+        <div className="mt-12">
+          <Title text1={"PAYMENT"} text2={"METHODS"} />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PlaceOrder
-
-
-
-
-
-
+export default PlaceOrder;
