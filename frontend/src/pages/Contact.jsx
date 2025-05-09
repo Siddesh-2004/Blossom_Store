@@ -7,7 +7,7 @@ function Contact(){
             <div className="contactContainer">
                 <div className="contactHeading">
                     <Heading
-                    heading1="CONTACT US" 
+                    heading1="Contact Us" 
                     heading2=""/>
                     <p className="contactSubHeading">Have a query? Need assistance? </p>
                    <p className="contactSubHeading"> Simply reach out for answers. We love staying in touch with you!</p>

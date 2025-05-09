@@ -63,7 +63,7 @@ const PlaceOrder = () => {
 
     if (validateRes.data.success) {
       console.log("Payment validated successfully");
-      placeOrder(orderPayload); // Now call placeOrder only if valid
+      placeOrder(orderPayload,"paid"); // Now call placeOrder only if valid
     } else {
       toast.error("Payment validation failed");
     }

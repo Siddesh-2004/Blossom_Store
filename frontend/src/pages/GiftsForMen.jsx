@@ -1,17 +1,18 @@
 import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import ProductItem from "../components/ProductItem";
+import Heading from "../components/Heading";
 
 function GiftsForMen() {
   const { products } = useContext(ShopContext);
   const giftsForMenProducts = products.filter(
-    (product) => product.category === "Kids"
+    (product) => product.category === "giftsForMen"
   );
   return (
     <div>
-      <h1>Just For Men!</h1>
+      <Heading heading1="Gifts For Men" heading2='"Thoughtful presents for the special man in your life"' />
       {/* Rendering Product Items */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6">
+      <div className="flex flex-wrap justify-evenly gap-y-6 gap-x-4">
         {giftsForMenProducts.map((item, index) => (
           <ProductItem
             key={index}

@@ -34,8 +34,24 @@ const App = () => {
   }, [token]);
 
   return (
-    <div className="px-4 sm:px-[0vw] md:px-[7vw] lg:px-[0vw]">
-      <ToastContainer />
+    
+    <>
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="colored"
+      transition:Slide
+    />
+    {token === "" ? (
+      <Login setToken={setToken} token={token} />
+    ) : (<div className="px-4 sm:px-[0vw] md:px-[7vw] lg:px-[0vw]">
       <NavBar />
       <SearchBar />
       <Features />
@@ -62,7 +78,8 @@ const App = () => {
         <Route path="/myOrders" element={<Orders />} />
       </Routes>
       <Footer />
-    </div>
+    </div>)}
+    </>
   );
 };
 

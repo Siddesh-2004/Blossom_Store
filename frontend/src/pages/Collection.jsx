@@ -17,6 +17,7 @@ const Collection = () => {
       setCategory((prev) => prev.filter((item) => item !== e.target.value));
     } else {
       setCategory((prev) => [...prev, e.target.value]);
+      console.log(category);
     }
   };
 
@@ -42,17 +43,18 @@ const Collection = () => {
         category.includes(item.category)
       );
     }
-    if (subCategory.length > 0) {
-      productsCopy = productsCopy.filter((item) =>
-        subCategory.includes(item.subCategory)
-      );
-    }
+    // if (subCategory.length > 0) {
+    //   productsCopy = productsCopy.filter((item) =>
+    //     subCategory.includes(item.subCategory)
+    //   );
+    // }
 
     setFilterProducts(productsCopy);
   };
 
   const sortProduct = () => {
     let fpCopy = filterProducts.slice();
+    
 
     switch (sortType) {
       case "low-high":
@@ -107,20 +109,19 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Men"}
+                value={"Birthday"}
                 onChange={toggleCategory}
-                checked={category.includes("Men")}
+                checked={category.includes("Birthday")}
               />
-              
-                Birthday
+              Birthday
             </label>
             <label className="flex gap-2 cursor-pointer">
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Women"}
+                value={"Aniversary"}
                 onChange={toggleCategory}
-                checked={category.includes("Women")}
+                checked={category.includes("Aniversary")}
               />
               Aniversary
             </label>
@@ -128,19 +129,19 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Kids"}
+                value={"Wedding"}
                 onChange={toggleCategory}
-                checked={category.includes("Kids")}
+                checked={category.includes("Wedding")}
               />
-              Wedding GIfts
+              Wedding Gifts
             </label>
             <label className="flex gap-2 cursor-pointer">
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Kids"}
+                value={"Anniversary"}
                 onChange={toggleCategory}
-                checked={category.includes("Women")}
+                checked={category.includes("Anniversary")}
               />
               Big Gestures
             </label>
@@ -148,9 +149,9 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Women"}
+                value={"giftsForMen"}
                 onChange={toggleCategory}
-                checked={category.includes("Women")}
+                checked={category.includes("giftsForMen")}
               />
               Gifts For Men
             </label>
@@ -158,16 +159,16 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Women"}
+                value={"Congratulations"}
                 onChange={toggleCategory}
-                checked={category.includes("Kids")}
+                checked={category.includes("Congratulations")}
               />
               Congratulations
             </label>
           </div>
         </div>
         {/* Sub Category Filters */}
-        <div
+        {/* <div
           className={`border border-gray-300 pl-5 py-3 my-5 ${
             showFilter ? "" : "hidden"
           } sm:block`}
@@ -194,9 +195,8 @@ const Collection = () => {
               />
               Loose Flowers
             </label>
-            
           </div>
-        </div>
+        </div> */}
         {/* Clear Filters Button */}
         <button
           className={`px-4 py-2 mt-1 text-white bg-black rounded hover:bg-gray-900 ${
@@ -223,7 +223,7 @@ const Collection = () => {
           </select>
         </div>
         {/* Map Products */}
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 gap-y-6">
+        <div className="flex flex-wrap justify-evenly gap-y-6 gap-x-4">
           {filterProducts.map((item, index) => (
             <ProductItem
               key={index}

@@ -24,7 +24,7 @@ const BestSeller = () => {
           won over shoppers with their quality, style, and value.
         </p> */}
       </div>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6">
+     < div className="flex flex-wrap justify-evenly gap-y-6 gap-x-4">
         {bestSeller.map((item, index) => (
           <ProductItem
             key={index}

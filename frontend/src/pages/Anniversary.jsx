@@ -1,17 +1,17 @@
 import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import ProductItem from "../components/ProductItem";
-
+import Heading from "../components/Heading";
 function Anniversary() {
   const { products } = useContext(ShopContext);
   const anniversaryProducts = products.filter(
-    (product) => product.category === "Kids"
+    (product) => product.category === "Anniversary"
   );
   return (
     <div >
-      <h1>Happy Anniversary!</h1>
+        <Heading heading1="Anniversary" heading2='"Love grows stronger with every bloom'/>
       {/* Rendering Product Items */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6">
+      <div className="flex flex-wrap justify-evenly gap-y-6 gap-x-4">
         {anniversaryProducts.map((item, index) => (
           <ProductItem
             key={index}

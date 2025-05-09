@@ -1,16 +1,17 @@
 import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import ProductItem from "../components/ProductItem";
+import Heading from "../components/Heading";
 function Congratulations() {
   const { products } = useContext(ShopContext);
   const congratulationProducts = products.filter(
-    (product) => product.category === "Women"
+    (product) => product.category === "Congratulations"
   );
   return (
     <div>
-      <h1>Happy Congratulations!</h1>
+      <Heading heading1="Congratulations" heading2='"Celebrate your achievements with flowers"' />
       {/* Rendering Product Items */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6">
+      <div className="flex flex-wrap justify-evenly gap-y-6 gap-x-4">
         {congratulationProducts.map((item, index) => (
           <ProductItem
             key={index}
