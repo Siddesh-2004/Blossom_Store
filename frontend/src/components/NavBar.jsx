@@ -4,9 +4,13 @@ import { Link, NavLink } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext';
 import './NavBar.css'
 
-const NavBar = () => {
+const NavBar = ({setToken}) => {
     const [visible, setVisible] = useState(false);
     const {setShowSearch, getCartCount} = useContext(ShopContext);
+    const handleClick = () => {
+        setToken("");
+        localStorage.removeItem("token");
+    }
   return (
     <>
     <div className="navContainer">
@@ -58,9 +62,12 @@ const NavBar = () => {
             
            
           <div className='relative group'>
-        <Link to='/login'>
+        {/* <Link to='/login'>
             <img src={assets.profile_icon} className='w-5 cursor-pointer' alt="Your Profile" />
-        </Link>
+        </Link> */}
+        <button className="px-6 py-2 hover:bg-[#c8dbd7] hover:text-black  rounded-lg hover:bg-blue-700 transition duration-300 " onClick={handleClick}>
+  Logout
+</button>
         <div className='absolute left-[10px] hidden pt-100 group-hover:block dropdown-menu'>
             <div className='flex flex-col gap-2 px-3 py-3  text-gray-500 rounded w-36 bg-slate-100'>
                 <p className='cursor-pointer hover:text-black'>Profile</p>
@@ -73,7 +80,10 @@ const NavBar = () => {
           <li>
           
           <Link to='/cart' className='relative'>
+          <button>
+
         <img src={assets.cart_icon} className='w-5 min-w-5' alt="Cart" />
+          </button>
         <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>{getCartCount()}</p>
     </Link>
           </li>

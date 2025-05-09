@@ -69,7 +69,7 @@ const AdminOrders = () => {
             <h3 style={{ marginBottom: "0.5rem" }}>{order.customerName}</h3>
             <p><strong>Email:</strong> {order.customerEmail}</p>
             <p><strong>Address:</strong> {order.customerAddress}</p>
-            <p><strong>Total:</strong> ${order.totalAmount.toFixed(2)}</p>
+            <p><strong>Total:</strong> ₹{order.totalAmount.toFixed(2)}</p>
             <p><strong>Status:</strong> {order.orderStatus} | <strong>Payment:</strong> {order.paymentStatus}</p>
             <p><strong>Order Date:</strong> {new Date(order.orderDate).toLocaleString()}</p>
 

@@ -166,23 +166,14 @@ const Add = ({ token }) => {
             required
           >
             <option value="">Select Category</option>
-            <option value="Men">Men</option>
-            <option value="Women">Women</option>
-            <option value="Kids">Kids</option>
-          </select>
-        </div>
-        <div>
-          <p className="mb-2 text-lg font-semibold">Product Sub Category</p>
-          <select
-            onChange={(e) => setSubCategory(e.target.value)}
-            value={subCategory}
-            className="w-full px-3 py-2 border-gray-500 max-w-[500px]"
-            required
-          >
-            <option value="">Select Sub Category</option>
-            <option value="Topwear">Topwear</option>
-            <option value="Bottomwear">Bottomwear</option>
-            <option value="Winterwear">Winterwear</option>
+            <option value="Birthday">Birthday</option>
+            <option value="Anniversary">Anniversary</option>
+            <option value="BigGestures">Grand Gestures</option>
+            <option value="Congratulations">Congratulations</option>
+            <option value="Wedding">Wedding</option>
+            <option value="GiftsForMen">Gifts For Men</option>
+
+
           </select>
         </div>
         <div>
@@ -200,7 +191,7 @@ const Add = ({ token }) => {
       <div>
         <p className="mb-2 text-lg font-semibold">Product Sizes</p>
         <div className="flex gap-3">
-          {["S", "M", "L", "XL", "XXL"].map((size) => (
+          {["S", "M", "L"].map((size) => (
             <div
               key={size}
               onClick={() =>
@@ -223,17 +214,6 @@ const Add = ({ token }) => {
             </div>
           ))}
         </div>
-      </div>
-      <div className="flex gap-2 mt-2">
-        <input
-          type="checkbox"
-          id="bestSeller"
-          checked={bestSeller}
-          onChange={() => setBestSeller((prev) => !prev)}
-        />
-        <label htmlFor="bestSeller" className="ml-2 cursor-pointer">
-          Add to Best Seller
-        </label>
       </div>
       <div className="flex flex-col w-full gap-2 sm:flex-row sm:gap-8">
         <button

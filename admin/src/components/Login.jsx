@@ -4,6 +4,7 @@ import axios from "axios";
 import { backendUrl } from "../App";
 import { toast } from "react-toastify";
 
+
 const Login = ({ setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,14 +31,14 @@ const Login = ({ setToken }) => {
 
   return (
     <div className="flex items-center justify-center w-full min-h-screen">
-      <div className="max-w-md px-8 py-6 bg-white rounded-lg shadow-md">
-        <div className="mb-3 w-fit">
-          <img src={assets.logo} alt="Trendify" />
-        </div>
-        <h1 className="mb-4 text-2xl font-bold">Admin Dashboard</h1>
+      <div className="select-none max-w-md px-8 py-6 bg-white rounded-lg shadow-md">
+        <div className="select-none mb-3 w-full">
+            <img src={assets.logo} alt="Blossom" className="mx-auto select-none w-32 h-auto" />
+          </div>
+        <h1 className="select-none mb-4 text-2xl font-bold">Admin Dashboard</h1>
         <form onSubmit={onSubmitHandler}>
           <div className="mb-3 min-w-72">
-            <p className="mb-2 text-sm font-medium text-gray-700">Email</p>
+            <p className="select-none mb-2 text-sm font-medium text-gray-700">Email</p>
             <input
               onChange={(e) => setEmail(e.target.value)}
               value={email}
@@ -48,7 +49,7 @@ const Login = ({ setToken }) => {
             />
           </div>
           <div>
-            <p className="mb-2 text-sm font-medium text-gray-700">Password</p>
+            <p className="select-none mb-2 text-sm font-medium text-gray-700">Password</p>
             <input
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -59,7 +60,7 @@ const Login = ({ setToken }) => {
             />
           </div>
           <button
-            className="w-full px-4 py-2 mt-5 text-white bg-black rounded-md"
+            className="select-none w-full px-4 py-2 mt-5 text-white bg-black rounded-md"
             type="submit"
           >
             Login

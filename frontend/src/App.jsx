@@ -52,7 +52,7 @@ const App = () => {
     {token === "" ? (
       <Login setToken={setToken} token={token} />
     ) : (<div className="px-4 sm:px-[0vw] md:px-[7vw] lg:px-[0vw]">
-      <NavBar />
+      <NavBar setToken={setToken} />
       <SearchBar />
       <Features />
 

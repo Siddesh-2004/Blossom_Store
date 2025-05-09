@@ -3,6 +3,7 @@ import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
 import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
+import Heading from "../components/Heading";
 
 const Collection = () => {
   const { products, search, showSearch } = useContext(ShopContext);
@@ -17,7 +18,7 @@ const Collection = () => {
       setCategory((prev) => prev.filter((item) => item !== e.target.value));
     } else {
       setCategory((prev) => [...prev, e.target.value]);
-      console.log(category);
+      // console.log(category);
     }
   };
 
@@ -76,6 +77,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
+    console.log("Filter Products", filterProducts);
   }, [category, subCategory, search, showSearch]);
 
   useEffect(() => {
@@ -83,12 +85,12 @@ const Collection = () => {
   }, [sortType]);
 
   return (
-    <div className="flex flex-col gap-1 pt-10 border-t sm:flex-row sm:gap-10">
+    <div className="flex flex-col gap-1 pl-4 pt-10 border-t sm:flex-row sm:gap-10">
       {/* Filter Options */}
       <div className="min-w-60">
         <p
           onClick={() => setShowFilter(!showFilter)}
-          className="flex items-center gap-2 my-2 text-xl cursor-pointer"
+          className="select-one flex items-center gap-2 my-2 text-xl cursor-pointer"
         >
           FILTERS
           <img
@@ -119,11 +121,11 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Aniversary"}
+                value={"Anniversary"}
                 onChange={toggleCategory}
-                checked={category.includes("Aniversary")}
+                checked={category.includes("Anniversary")}
               />
-              Aniversary
+              Anniversary
             </label>
             <label className="flex gap-2 cursor-pointer">
               <input
@@ -139,11 +141,11 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Anniversary"}
+                value={"BigGestures"}
                 onChange={toggleCategory}
-                checked={category.includes("Anniversary")}
+                checked={category.includes("BigGestures")}
               />
-              Big Gestures
+              Grand Gestures
             </label>
             <label className="flex gap-2 cursor-pointer">
               <input
@@ -199,7 +201,7 @@ const Collection = () => {
         </div> */}
         {/* Clear Filters Button */}
         <button
-          className={`px-4 py-2 mt-1 text-white bg-black rounded hover:bg-gray-900 ${
+          className={`select-none px-4 py-2 mt-2 text-white bg-black rounded hover:bg-gray-900 ${
             showFilter ? "block" : "hidden"
           } sm:block`}
           onClick={clearFilters}
@@ -211,11 +213,12 @@ const Collection = () => {
       {/* View Product Items */}
       <div className="flex-1">
         <div className="flex justify-between mb-4 text-base sm:text-2xl">
-          <Title text1={"ALL"} text2={"COLLECTIONS"} />
+          <Heading heading1="Blossom Garden" heading2="Gifts for every occasion" />
+          
           {/* Product Sort */}
           <select
             onChange={(e) => setSortType(e.target.value)}
-            className="px-2 text-sm border-2 border-gray-300"
+            className="text-sm border-2 border-gray-300 mt-2 mr-2"
           >
             <option value="relevant">Sort by: Relevant</option>
             <option value="low-high">Sort by: Low to High</option>

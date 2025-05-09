@@ -5,12 +5,12 @@ import Heading from "../components/Heading";
 function BigGestures() {
   const { products } = useContext(ShopContext);
   let bigGestureProducts = products.filter(
-    (product) => product.category === "Anniversary"
+    (product) => product.category === "BigGestures"
   );
-  bigGestureProducts=bigGestureProducts.slice(bigGestureProducts.length/2,bigGestureProducts.length);
+  
   return (
     <div>
-      <Heading heading1="Big Gestures!" heading2='"Thoughtful gifts to make a statement"' />
+      <Heading heading1="Grand Gestures!" heading2='"Thoughtful gifts to make a statement"' />
       {/* Rendering Product Items */}
       <div className="flex flex-wrap justify-evenly gap-y-6 gap-x-4">
         {bigGestureProducts.map((item, index) => (
